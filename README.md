@@ -4,32 +4,40 @@
 This project is a computer vision-based fire and smoke detection system built using the YOLO (You Only Look Once) object detection model.
 The main objective is to identify fire or smoke in images, videos, or live camera feeds with high accuracy and speed.
 
-The system is trained on a custom dataset containing images of fire and smoke, labeled in YOLO format. The model learns to draw bounding boxes around the detected areas and classify them as either "fire" or "smoke."
-It is especially useful for safety monitoring, early fire detection, and wildfire prevention.
+The system is trained on a custom dataset containing images of fire and smoke, labeled in YOLO format. The model learns to:
 
-Key highlights of the project:
+Draw bounding boxes around detected areas
 
-Uses YOLOv11s (lightweight YOLO version) for faster inference.
+Classify them as either "fire" or "smoke"
 
-Dataset split into train, validation, and test sets.
+Use Cases:
 
-Configurable parameters for image size, learning rate, optimizer, etc.
+✅ Safety monitoring in industrial areas
 
-Works in Google Colab or local Python environments.
+✅ Early fire detection in homes and offices
+
+✅ Wildfire detection in forest surveillance systems
+
+Key Highlights:
+
+🚀 Uses YOLOv11s (lightweight YOLO version) for faster inference
+
+📊 Dataset split into train, validation, and test sets
+
+⚙️ Configurable parameters (image size, learning rate, optimizer, etc.)
+
+💻 Works in Google Colab or local Python environments
 
 🛠️ Code Explanation (Step-by-Step)
+1️⃣ Import YOLO and Setup Environment
 
-Here’s the step-by-step process followed in the code:
+Install the ultralytics package (YOLO framework)
 
-Import YOLO and Setup Environment
+Import modules for model training and prediction
 
-Install the ultralytics package (YOLO framework).
+2️⃣ Dataset Configuration
 
-Import necessary modules for model training and prediction.
-
-Dataset Configuration
-
-A data.yaml file is used to define the dataset paths:
+Use data.yaml file to define dataset paths:
 
 train → path to training images
 
@@ -37,76 +45,95 @@ val → path to validation images
 
 test → path to testing images
 
-Also defines the class names: fire and smoke.
+Define class names:
 
-Model Training
+names:
+  0: fire
+  1: smoke
 
-The YOLO training command is run with parameters:
+3️⃣ Model Training
 
-task: detect (object detection task)
+Run YOLO training with parameters:
 
-mode: train (to start training)
+Task: detect (object detection task)
 
-data: path to the data.yaml file
+Mode: train (start training)
 
-model: yolo11s.pt (pre-trained YOLO small model)
+Data: path to data.yaml
 
-epochs: 80 (training cycles)
+Model: yolo11s.pt (pre-trained YOLO small model)
 
-imgsz: 640 (image size for processing)
+Epochs: 80
 
-batch: 32 (batch size for training)
+Image size: 640
 
-patience: 15 (stop if no improvement)
+Batch size: 32
 
-lr0: 0.0005 (learning rate)
+Patience: 15 (stop if no improvement)
 
-optimizer: AdamW (optimization algorithm)
+Learning rate: 0.0005
 
-Data augmentations like HSV adjustments, mixup, and mosaic are also applied to improve robustness.
+Optimizer: AdamW
 
-Monitoring Training
+Also applies data augmentations:
+
+🎨 HSV color space adjustments
+
+🔀 Mixup
+
+🧩 Mosaic
+
+4️⃣ Monitoring Training
 
 YOLO automatically logs:
 
-Training loss
+📉 Training loss
 
-mAP (mean Average Precision)
+📈 mAP (mean Average Precision)
 
-Precision and recall values
+📊 Precision and recall values
 
-Best model weights are saved in runs/detect/train/weights/best.pt.
+The best model weights are saved at:
 
-Running Predictions
+runs/detect/train/weights/best.pt
 
-The mode=predict option is used with the trained model to run detection on new data.
+5️⃣ Running Predictions
 
-The source parameter specifies the input:
+Use mode=predict with the trained model:
 
-Path to an image file
+Source options:
 
-Path to a video file
+🖼 Image file path
 
-0 for webcam feed
+🎥 Video file path
+
+📷 0 for webcam
 
 YOLO outputs:
 
 Bounding boxes
 
-Class labels (fire or smoke)
+Class labels (fire / smoke)
 
 Confidence scores
 
-Saving Results
+6️⃣ Saving Results
 
-YOLO saves all detection outputs in a folder under runs/detect/.
+All outputs are stored in:
 
-This includes processed images/videos with bounding boxes drawn.
+runs/detect/
 
-Evaluation
 
-The test set is used to check model performance.
+Includes processed images/videos with bounding boxes and labels.
 
-Evaluation metrics include mAP50 and mAP50-95.
+7️⃣ Evaluation
 
-Higher values mean better accuracy.
+Run model on the test set
+
+Evaluate with metrics:
+
+mAP50
+
+mAP50-95
+
+Higher values → better accuracy
